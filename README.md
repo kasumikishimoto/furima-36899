@@ -37,7 +37,7 @@
 ## Association
 
 - belongs_to : user
-- has_one : purchase_informations
+- has_one : purchase_information
 
 
 
