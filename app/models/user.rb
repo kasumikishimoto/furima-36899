@@ -8,7 +8,10 @@ class User < ApplicationRecord
   validates :email,           presence: true, uniqueness: true
   validates :password,        presence: true, format: { with: /[a-z\d]{6,}/i }
   validates :first_name, :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :first_name_kana, :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+  with_options presence: true, format: { with: /\A[ァ-ヶー－]+\z/ } do
+  validates :first_name_kana
+  validates :last_name_kana
+  end
   validates :birthday,        presence: true
 
   has_many :items
