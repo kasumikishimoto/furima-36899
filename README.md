@@ -20,7 +20,7 @@
 - has_many : purchase_informations
 
 
-## itesmテーブル
+## itemsテーブル
 
 | Column         | Type       | Options                         |
 | -------------- | ---------- | ------------------------------- |
