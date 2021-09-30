@@ -1,13 +1,18 @@
 class Item < ApplicationRecord
-
-  validates :title,           presence: true, length: { maximum: 40}
-  validates :category_id,     numericality: { other_than: 1 }
-  validates :description,     presence: true, length: { maximum: 1000}
-  validates :status_id,       numericality: { other_than: 1 }
-  validates :shipping_fee_id, numericality: { other_than: 1 }
-  validates :prefecture_id,   numericality: { other_than: 1 }
-  validates :day_to_ship_id,  numericality: { other_than: 1 }
-  validates :price,           presence: true, length: { maximum: 9999999}, format: { with: /\A[0-9]+\z/}
+  
+  with_options presence: true do
+    validates :image
+    validates :title
+    validates :description
+    validates :price, inclusion: { in: 300..9_999_999 },  format: { with: /\A[0-9]+\z/ }
+  end
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :status_id
+    validates :shipping_fee_id
+    validates :prefecture_id
+    validates :day_to_ship_id
+  end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -15,7 +20,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :prefecture
   belongs_to :day_to_ship
-
   belongs_to :user
   has_one_attached :image
   #has_one :purchase_information
