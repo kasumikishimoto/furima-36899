@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   validates :shipping_fee_id, numericality: { other_than: 1 }
   validates :prefecture_id,   numericality: { other_than: 1 }
   validates :day_to_ship_id,  numericality: { other_than: 1 }
-  validates :price,           presence: true, length: { maximum: 9999999}
+  validates :price,           presence: true, length: { maximum: 9999999}, format: { with: /\A[0-9]+\z/}
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
