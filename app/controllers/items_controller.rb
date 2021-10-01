@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, expect: [:index, :create]
 
 
   def index
-    @items = Item.order("created_at DESC")
+    #@items = Item.order("created_at DESC")
   end
 
   def new
