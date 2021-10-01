@@ -21,6 +21,12 @@ RSpec.describe Item, type: :model do
     end
 
     context '出品できないとき' do
+      it 'userが紐付いていなければ出品できない' do
+        @item.user = nil
+        @item.valid?
+        binding.pry
+        expect(@ite.errors.full_messages).to include("User must exist")
+      end
       it 'titleのidが空では出品できない' do
         @item.title = ''
         @item.valid?
