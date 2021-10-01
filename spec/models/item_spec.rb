@@ -36,6 +36,31 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank", "Price is not included in the list", "Price is invalid")
       end
+      it 'priceが全角では保存できない' do
+        @item.price = '２００００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it 'priceが英字では保存できない' do
+        @item.price = 'aaaaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it 'priceが英数字混合では保存できない' do
+        @item.price = '1a1a1a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it '300未満の値では保存できない' do
+        @item.price = 200
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      it '10000000以上の値では保存できない' do
+        @item.price = 1000000000000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
       it 'descriptionが空では出品できない' do
         @item.description = ''
         @item.valid?
