@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
   def update
     @item.update(item_params)
     if @item.save
-      redirect_to root_path
+      redirect_to item_path(@item.id)
     else
       render :edit
     end
@@ -47,9 +47,9 @@ class ItemsController < ApplicationController
     unless user_signed_in?
       redirect_to action: :index
     end
+  end
 
     def create_instance
       @item = Item.find(params[:id])
     end
-  end
 end
