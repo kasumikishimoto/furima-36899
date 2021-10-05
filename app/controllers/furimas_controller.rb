@@ -1,2 +1,0 @@
-class FurimasController < ApplicationController
-end
