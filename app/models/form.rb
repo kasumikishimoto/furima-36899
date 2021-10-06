@@ -6,12 +6,11 @@ class Form
     validates :item_id
     validates :user_id
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/ }
-    validates :prefecture_id
+    validates :prefecture_id, numericality: { other_than: 1 }
     validates :municipality
     validates :address
     validates :phone_nu, format: { with: /\A\d{10,11}\z/ }
-    validates :purchase_information_id
-  end
+   end
   
 
   def save
