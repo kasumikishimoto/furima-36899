@@ -7,6 +7,7 @@ class ShippingAddressesController < ApplicationController
 
 
   def create
+    @item = Item.find(params[:item_id])
     @form = Form.new(shipping_params)
     if @form.valid?
       @form.save
@@ -19,7 +20,6 @@ class ShippingAddressesController < ApplicationController
 
   private
   def shipping_params
-    params.require(:form).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_nu, :purchase_information, :image).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:form).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_nu).merge(user_id: current_user.id, item_id: params[:item_id])
   end
-
 end
