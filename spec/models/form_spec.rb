@@ -10,7 +10,7 @@ describe '商品購入に必要なデータの保存' do
     end
 
   context '保存できる場合' do
-    it 'すべての値が正しく入力されていれば保存できること' do
+    it 'shipping_addressとtokenがあれば保存できること' do
       expect(@form).to be_valid
     end
     it 'building_nameは空でも保存できること' do
@@ -84,6 +84,11 @@ describe '商品購入に必要なデータの保存' do
       @form.item_id = ''
       @form.valid?
       expect(@form.errors.full_messages).to include("Item can't be blank")
+    end
+    it "tokenが空では保存できない" do
+      @form.token = nil
+      @form.valid?
+      expect(@form.errors.full_messages).to include("Token can't be blank")
     end
   end
 end
