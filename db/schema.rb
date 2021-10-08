@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_001_121_048) do
+ActiveRecord::Schema.define(version: 20_211_004_033_350) do
   create_table 'active_storage_attachments', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'record_type', null: false
@@ -57,6 +57,19 @@ ActiveRecord::Schema.define(version: 20_211_001_121_048) do
     t.index ['user_id'], name: 'index_purchase_informations_on_user_id'
   end
 
+  create_table 'shipping_addresses', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
+    t.string 'postal_code', null: false
+    t.integer 'prefecture_id', null: false
+    t.string 'municipality', null: false
+    t.string 'address', null: false
+    t.string 'building_name'
+    t.string 'phone_nu', null: false
+    t.bigint 'purchase_information_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['purchase_information_id'], name: 'index_shipping_addresses_on_purchase_information_id'
+  end
+
   create_table 'users', options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8', force: :cascade do |t|
     t.string 'email', default: '', null: false
     t.string 'encrypted_password', default: '', null: false
@@ -79,4 +92,5 @@ ActiveRecord::Schema.define(version: 20_211_001_121_048) do
   add_foreign_key 'items', 'users'
   add_foreign_key 'purchase_informations', 'items'
   add_foreign_key 'purchase_informations', 'users'
+  add_foreign_key 'shipping_addresses', 'purchase_informations'
 end

@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one    :purchase_information
   has_one_attached :image
-  # has_one :purchase_information
+  has_one :purchase_information
 
   with_options presence: true do
     validates :image
