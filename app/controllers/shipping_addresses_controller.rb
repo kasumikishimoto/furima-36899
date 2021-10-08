@@ -8,7 +8,6 @@ class ShippingAddressesController < ApplicationController
     @form = Form.new
   end
 
-
   def create
     @form = Form.new(shipping_params)
     if @form.valid?
@@ -20,10 +19,12 @@ class ShippingAddressesController < ApplicationController
     end
   end
 
-
   private
+
   def shipping_params
-    params.require(:form).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_nu).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:form).permit(:postal_code, :prefecture_id, :municipality, :address, :building_name, :phone_nu).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def create_instance
@@ -31,19 +32,15 @@ class ShippingAddressesController < ApplicationController
   end
 
   def move_to_index
-    if current_user.id == @item.user_id && @item.purchase_information != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id && !@item.purchase_information.nil?
   end
 
   def same_user
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user.id == @item.user_id
   end
 
-  def  pay_item
-    Payjp.api_key = ENV["FURIMA_SECRET_KEY"]
+  def pay_item
+    Payjp.api_key = ENV['FURIMA_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: shipping_params[:token],

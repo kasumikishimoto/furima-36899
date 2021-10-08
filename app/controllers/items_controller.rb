@@ -23,9 +23,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def update
     @item.update(item_params)
@@ -44,12 +42,11 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:title, :description, :category_id, :status_id, :shipping_fee_id, :prefecture_id,:day_to_ship_id, :price, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:title, :description, :category_id, :status_id, :shipping_fee_id, :prefecture_id,
+                                 :day_to_ship_id, :price, :image).merge(user_id: current_user.id)
   end
 
   def create_instance
     @item = Item.find(params[:id])
   end
-
 end
-
