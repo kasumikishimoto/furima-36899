@@ -51,5 +51,3 @@ class ShippingAddressesController < ApplicationController
     )
   end
 end
-
-#トップページに戻す　もし　（今ログインしているユーザー　＝＝　出品者）　　商品の購入の履歴があるかどうか
