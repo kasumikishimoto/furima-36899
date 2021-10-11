@@ -3,6 +3,7 @@ class ShippingAddressesController < ApplicationController
   before_action :create_instance
   before_action :move_to_index
   before_action :same_user
+  before_action :move_to_root
 
   def index
     @form = Form.new
@@ -37,6 +38,10 @@ class ShippingAddressesController < ApplicationController
 
   def same_user
     redirect_to root_path if current_user.id == @item.user_id
+  end
+
+  def move_to_root
+    redirect_to root_path if current_user.id != @item.user_id && @item.purchase_information != nil
   end
 
   def pay_item

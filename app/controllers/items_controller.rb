@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index new create show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :create_instance, except: %i[index new create show]
+  before_action :sold_out_item, except: %i[index new create show]
+  before_action :move_to_index, except: %i[index new create show]
 
   def index
     @items = Item.order('created_at DESC')
@@ -23,7 +25,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def edit; end
+  def edit
+    @item = Item.find(params[:id])
+  end
 
   def update
     @item.update(item_params)
@@ -48,5 +52,13 @@ class ItemsController < ApplicationController
 
   def create_instance
     @item = Item.find(params[:id])
+  end
+
+  def sold_out_item
+    redirect_to root_path if current_user.id == @item.user_id && !@item.purchase_information.nil?
+  end
+
+  def move_to_index
+    redirect_to root_path if current_user.id != @item.user_id
   end
 end
