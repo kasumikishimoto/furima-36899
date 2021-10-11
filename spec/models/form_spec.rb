@@ -23,72 +23,72 @@ RSpec.describe Form, type: :model do
       it 'postal_codeが空では保存できない' do
         @form.postal_code = ''
         @form.valid?
-        expect(@form.errors.full_messages).to include("Postal code can't be blank")
+        expect(@form.errors.full_messages).to include("郵便番号を入力してください")
       end
       it 'postal_codeが全角数値では保存できない' do
         @form.postal_code = '１２３−４５６７'
         @form.valid?
-        expect(@form.errors.full_messages).to include('Postal code is invalid')
+        expect(@form.errors.full_messages).to include("郵便番号は不正な値です")
       end
       it 'postal_codeにハイフンが含まれていなければ登録できない' do
         @form.postal_code = 1_234_567
         @form.valid?
-        expect(@form.errors.full_messages).to include('Postal code is invalid')
+        expect(@form.errors.full_messages).to include("郵便番号は不正な値です")
       end
       it 'prefecture_idが1では保存できない' do
         @form.prefecture_id = 1
         @form.valid?
-        expect(@form.errors.full_messages).to include('Prefecture must be other than 1')
+        expect(@form.errors.full_messages).to include("都道府県は1以外の値にしてください")
       end
       it 'municipalityが空では保存できない' do
         @form.municipality = ''
         @form.valid?
-        expect(@form.errors.full_messages).to include("Municipality can't be blank")
+        expect(@form.errors.full_messages).to include("市区町村を入力してください")
       end
       it 'addressが空では保存できない' do
         @form.address = ''
         @form.valid?
-        expect(@form.errors.full_messages).to include("Address can't be blank")
+        expect(@form.errors.full_messages).to include("番地を入力してください")
       end
       it 'phone_nuが空では保存できない' do
         @form.phone_nu = ''
         @form.valid?
-        expect(@form.errors.full_messages).to include("Phone nu can't be blank")
+        expect(@form.errors.full_messages).to include("電話番号を入力してください")
       end
       it 'phone_nuが10桁以下だと保存できない' do
         @form.phone_nu = 10_000
         @form.valid?
-        expect(@form.errors.full_messages).to include('Phone nu is invalid')
+        expect(@form.errors.full_messages).to include("電話番号は不正な値です")
       end
       it 'phone_nuが11桁以上だと保存できない' do
         @form.phone_nu = 100_000_000_000
         @form.valid?
-        expect(@form.errors.full_messages).to include('Phone nu is invalid')
+        expect(@form.errors.full_messages).to include("電話番号は不正な値です")
       end
       it 'phone_nuが全角数値だと保存できない' do
         @form.phone_nu = '１００００００００００'
         @form.valid?
-        expect(@form.errors.full_messages).to include('Phone nu is invalid')
+        expect(@form.errors.full_messages).to include("電話番号は不正な値です")
       end
       it 'phone_nuが英数字混合では保存できない' do
         @form.phone_nu = '1a1a1a1a1a'
         @form.valid?
-        expect(@form.errors.full_messages).to include('Phone nu is invalid')
+        expect(@form.errors.full_messages).to include("電話番号は不正な値です")
       end
       it 'userが紐づいていないと保存できない' do
         @form.user_id = nil
         @form.valid?
-        expect(@form.errors.full_messages).to include("User can't be blank")
+        expect(@form.errors.full_messages).to include("Userを入力してください")
       end
       it 'itemが紐づいていないと保存できない' do
         @form.item_id = ''
         @form.valid?
-        expect(@form.errors.full_messages).to include("Item can't be blank")
+        expect(@form.errors.full_messages).to include("Itemを入力してください")
       end
       it 'tokenが空では保存できない' do
         @form.token = nil
         @form.valid?
-        expect(@form.errors.full_messages).to include("Token can't be blank")
+        expect(@form.errors.full_messages).to include("クレジットカード情報を入力してください")
       end
     end
   end
